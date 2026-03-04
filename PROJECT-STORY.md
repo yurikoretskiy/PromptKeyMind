@@ -195,10 +195,30 @@ Every technical decision was made with one question: does this serve a personal 
 - **ES modules** because the code should be organized but not compiled
 - **Static files** because `python3 -m http.server` is the entire deployment
 
-This isn't scalable. It's not production-grade. It doesn't need to be. It's a sharp tool built for one person's specific workflow, and it does exactly what it needs to do.
+This isn't scalable. It's not production-grade. It doesn't need to be — yet.
+
+## Where This Is Going
+
+The MVP works. I use it. But as I used it, I started seeing where it could go.
+
+**Vocabulary layers.** Right now the vocabulary is hardcoded for one use case: AI prompting. But I type different things in different contexts. When I'm writing short emails, it's a different vocabulary. When I'm searching Google or shopping, different again. The tool should support multiple vocabulary "layers" — professional prompting, personal writing, topic-specific sets — and let me switch between them. On the top level everything is interconnected (same keyboard, same fingers), but each layer gives you a different hook: "I use this right now for prompting" or "I use this for quick emails."
+
+**Vocabulary from real sources.** I don't want to manually edit `data.js` forever. I want to paste a block of text — or import a Claude conversation, a ChatGPT export, my Notion notes — and have the system extract the vocabulary automatically. Break it into keywords, find the bigrams, generate all five stages. The "derive backwards" principle should work automatically, not manually.
+
+**Vocabulary versioning.** As my work changes, my vocabulary changes. The words I type most in March might be different from June. I want to track how my vocabulary evolves — version it, roll back if needed, compare what changed.
+
+**Vocabulary exchange.** If I build a great prompting vocabulary, my friend who also works with AI should be able to import it. And if they build one for data analysis, I should be able to try it. Vocabularies become shareable packs.
+
+**Profiles.** Right now everything is in localStorage. That's fine for a personal tool, but if the vocabulary system grows, I need proper profiles — export your settings, import on another machine, keep your stats and streaks portable.
+
+**Hosting for others.** I'm deploying this on my VPS at `type.yurykoretskiy.space`. Initially private, for me. But the architecture should allow others to use it too — either on the public instance or self-hosted on their own server. I don't want to build a SaaS (I'd need to maintain it), but I want it hostable. Docker image, docker-compose up, done.
+
+**The bigger idea.** What started as a personal morning warm-up tool is actually something many AI-heavy workers could use. Everyone who types prompts all day has the same problem: generic typing trainers don't train their words. The tool doesn't need to be complex — it needs to be *customizable*. The moment someone can plug in their own vocabulary and get personalized training stages, it becomes genuinely useful.
+
+I'm not rushing any of this. The backlog is in `BACKLOG.md`, organized in phases. Each version milestone gets a commit and a push. The tool grows when it needs to grow.
 
 ## What's Here Now
 
-Three iterations. ~2,900 lines of code. Nine source files. Two HTML pages. One CSS file with dark and light themes. A Mac keyboard with finger zones and hand indicators. Five training stages with vocabulary-derived content. Per-key accuracy tracking. Daily streaks. All running in a browser with zero dependencies.
+Three iterations. ~2,900 lines of code. Nine source files. Two HTML pages. One CSS file with dark and light themes. A Mac keyboard with finger zones and hand indicators. Five training stages with vocabulary-derived content. Per-key accuracy tracking. Daily streaks. Deployed at `type.yurykoretskiy.space`.
 
 It works. I use it. And every word it teaches me is a word I'll type tomorrow.

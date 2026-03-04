@@ -108,23 +108,31 @@ No build step required.
 - **No adaptive difficulty** — stages don't adjust based on per-key accuracy (like Keybr does)
 - **Timer is display-only** — doesn't auto-advance or enforce stage completion
 
-## Potential Next Steps
+## Vision
 
-| Priority | Feature | Effort |
-|----------|---------|--------|
-| High | Adaptive difficulty — focus on weak keys automatically | Medium |
-| High | Custom vocabulary upload — paste your words, auto-extract stages 1-2 | Medium |
-| Medium | Mobile-responsive layout | Medium |
-| Medium | Session analytics — WPM trend over time, accuracy heatmap | Medium |
-| Low | Multiple keyboard layouts (Windows, ISO, etc.) | Low |
-| Low | Export/import stats (JSON backup) | Low |
+The tool is evolving beyond a personal MVP:
+
+- **Vocabulary layers** — switchable topic packs (professional prompting, personal writing, shopping/search, short letters)
+- **Vocabulary import** — paste text or import from Claude/ChatGPT/Notion, auto-extract all 5 stages
+- **Profiles** — settings export/import, portable stats and preferences
+- **Vocabulary versioning & exchange** — track changes over time, share packs between people
+- **Self-hostable** — Docker image for anyone's VPS; public instance at `type.yurykoretskiy.space`
+
+Full roadmap: see `BACKLOG.md`
 
 ## How to Run
 
+**Live:** [type.yurykoretskiy.space](https://type.yurykoretskiy.space)
+
+**Local:**
 ```bash
 cd PromptKeyMind
 python3 -m http.server 8080
 # Open http://localhost:8080
 ```
 
-Or deploy to any static hosting (GitHub Pages, Netlify, Vercel) — just push and it works.
+**Docker:**
+```bash
+docker-compose up -d
+# Serves at port 80 behind Traefik
+```

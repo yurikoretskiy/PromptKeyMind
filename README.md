@@ -28,12 +28,14 @@ Every syllable in Stage 1 and every bigram in Stage 2 comes from words you'll ty
 
 ## Quick Start
 
+**Live:** [type.yurykoretskiy.space](https://type.yurykoretskiy.space)
+
+**Local:**
 ```bash
 cd PromptKeyMind
 python3 -m http.server 8080
+# Open http://localhost:8080
 ```
-
-Open [http://localhost:8080](http://localhost:8080) in Chrome.
 
 Click the typing area and start typing. The keyboard highlights the next key and which finger to use.
 
@@ -74,12 +76,31 @@ All training content lives in [`js/data.js`](js/data.js) as plain arrays. Edit d
 
 After editing Stages 3-5 vocabulary, update Stages 1-2 data to match — extract the syllables and bigrams from your new words.
 
+## Vision
+
+This is growing beyond a personal tool:
+
+- **Vocabulary layers** — switch between "AI Prompting", "Personal Writing", "Shopping/Search", or custom topics
+- **Import vocabulary** — paste text, import Claude/ChatGPT exports, auto-generate all 5 stages
+- **Profiles** — export/import settings, stats, and vocabulary
+- **Vocabulary exchange** — share vocabulary packs with others
+- **Self-hostable** — Docker image for your own VPS
+
+Full roadmap: [BACKLOG.md](BACKLOG.md)
+
 ## Tech Decisions
 
 - **No framework** — instant load, zero bundle size, runs from any static host
 - **ES modules** — clean imports without a bundler
 - **CSS custom properties** — theme switching without JS style manipulation
 - **localStorage** — no backend needed for personal use
+- **Docker + nginx** — deploy anywhere with `docker-compose up`
+
+## Docs
+
+- [HANDOVER.md](HANDOVER.md) — quick business overview: problem, solution, architecture, state
+- [PROJECT-STORY.md](PROJECT-STORY.md) — full narrative: why it was built, every decision, the journey
+- [BACKLOG.md](BACKLOG.md) — phased roadmap of what's coming
 
 ## License
 

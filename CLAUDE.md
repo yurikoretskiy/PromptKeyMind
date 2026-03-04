@@ -32,8 +32,13 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 ```
 ├── CLAUDE.md           ← this file
 ├── README.md           ← GitHub README
+├── HANDOVER.md         ← quick business overview
+├── PROJECT-STORY.md    ← full narrative: decisions, journey, vision
+├── BACKLOG.md          ← phased roadmap of what's coming
 ├── index.html          ← single page app entry point
 ├── vocab.html          ← vocabulary reference page
+├── docker-compose.yml  ← deployment config (nginx + Traefik)
+├── nginx.conf          ← static file server config
 ├── css/
 │   └── styles.css      ← all styles, dark/light themes, keyboard layout
 ├── js/
@@ -44,7 +49,6 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 │   ├── stats.js        ← localStorage persistence, per-key accuracy, streaks
 │   └── data.js         ← word lists, phrases, sentences (user-editable)
 ├── docs/
-│   ├── HANDOVER.md     ← project handover document
 │   ├── screenshots/    ← verification & demo screenshots (gitignored)
 │   └── archive/        ← brainstorming docs & design refs (gitignored)
 ```
@@ -63,9 +67,27 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 - **Keybr** — adaptive per-key training, letter progress bar, clean minimal UI
 - **SpeedTypingOnline** — virtual keyboard with finger color zones, hand indicators, lesson structure
 
+## Versioning
+
+Each significant change = a milestone commit with version tag.
+Format: `v{major}.{minor} — {short description}`
+
+- v0.1 — MVP: 5 stages, typing engine, keyboard
+- v0.2 — Visual refinement: Mac keyboard, themes, hands, vocab page
+- v0.3 — Data coherence: derive backwards, word wrapping, documentation
+- v0.4 — Deploy to VPS, backlog, vision docs
+
+Push to GitHub = milestone marker. Update version in commit messages.
+
+## Deployment
+
+**Live:** https://type.yurykoretskiy.space
+**Stack:** nginx (static files) → Traefik (TLS + routing) → Docker
+**Deploy:** `docker-compose up -d` on VPS
+
 ## Testing
 
-- Open `index.html` in Chrome (no server needed for MVP)
+- Open `index.html` in Chrome or visit https://type.yurykoretskiy.space
 - All 5 stages should be navigable and typeable
 - Stats persist across page reloads (localStorage)
 - Theme toggle switches instantly between dark/light
