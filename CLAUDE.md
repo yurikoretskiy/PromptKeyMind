@@ -31,7 +31,9 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 
 ```
 ├── CLAUDE.md           ← this file
+├── README.md           ← GitHub README
 ├── index.html          ← single page app entry point
+├── vocab.html          ← vocabulary reference page
 ├── css/
 │   └── styles.css      ← all styles, dark/light themes, keyboard layout
 ├── js/
@@ -41,8 +43,10 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 │   ├── stages.js       ← 5 stage definitions + exercise generation
 │   ├── stats.js        ← localStorage persistence, per-key accuracy, streaks
 │   └── data.js         ← word lists, phrases, sentences (user-editable)
-├── Design examples/    ← reference screenshots (Keybr, SpeedTypingOnline)
-└── start.md            ← original brainstorming document
+├── docs/
+│   └── HANDOVER.md     ← project handover document
+├── Design examples/    ← reference screenshots (gitignored)
+└── start.md            ← original brainstorming document (gitignored)
 ```
 
 ## Key Conventions

@@ -1,4 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dev/test artifacts
 .playwright-mcp/
 *.png
+*.log
+
+# Project-specific (not source)
 Design examples/
 start.md
+
+# Future-proofing
+node_modules/
+dist/
+.env
