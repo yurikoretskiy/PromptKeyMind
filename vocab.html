@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptKeyMind — Vocabulary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Vocab-specific styles */
+    .vocab-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .vocab-header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .vocab-header-title h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .vocab-header-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .vocab-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+    }
+
+    .vocab-back-link:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .vocab-section {
+      margin-bottom: 32px;
+      padding: 20px 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .vocab-section h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 4px 0;
+      color: var(--text-primary);
+    }
+
+    .vocab-purpose {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .vocab-section h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin: 16px 0 10px 0;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .vocab-section h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .vocab-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .vocab-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+    }
+
+    .vocab-list {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .vocab-list-item {
+      padding: 4px 0;
+      margin-bottom: 6px;
+    }
+
+    .vocab-list-item::before {
+      content: '- ';
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .vocab-summary {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .summary-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .summary-value {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .subtitle-text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient background glow -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">⌨</span>
+        <span class="logo-text">Prompt<span class="logo-accent">Key</span>Mind</span>
+      </div>
+
+      <div class="header-controls">
+        <a href="index.html" class="vocab-back-link" title="Back to practice">← Back</a>
+        <button class="btn-icon" id="theme-toggle" title="Toggle theme (T)">
+          <span class="theme-icon-dark">☀</span>
+          <span class="theme-icon-light">☾</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="vocab-header">
+      <div class="vocab-header-title">
+        <h1>Vocabulary</h1>
+        <p class="vocab-header-subtitle">Training data organized by stage — see what you're practicing and why</p>
+      </div>
+    </div>
+
+    <!-- Stage 1: Letter Warm-up -->
+    <section class="vocab-section">
+      <h2>Stage 1 — Letter Warm-up</h2>
+      <p class="vocab-purpose">Letters and syllables derived from your real vocabulary — every pattern prepares you for words in later stages</p>
+
+      <h3>Index Fingers</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">f</span> <span class="vocab-tag">j</span>
+        <span class="vocab-tag">r</span> <span class="vocab-tag">u</span>
+        <span class="vocab-tag">t</span> <span class="vocab-tag">y</span>
+        <span class="vocab-tag">g</span> <span class="vocab-tag">h</span>
+        <span class="vocab-tag">v</span> <span class="vocab-tag">m</span>
+        <span class="vocab-tag">b</span> <span class="vocab-tag">n</span>
+      </div>
+
+      <h3>Middle Fingers</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">d</span> <span class="vocab-tag">k</span>
+        <span class="vocab-tag">e</span> <span class="vocab-tag">i</span>
+        <span class="vocab-tag">c</span>
+      </div>
+
+      <h3>Ring Fingers</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">s</span> <span class="vocab-tag">l</span>
+        <span class="vocab-tag">w</span> <span class="vocab-tag">o</span>
+        <span class="vocab-tag">x</span>
+      </div>
+
+      <h3>Pinky Fingers</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">a</span> <span class="vocab-tag">p</span>
+        <span class="vocab-tag">q</span> <span class="vocab-tag">z</span>
+      </div>
+
+      <h3>Vocabulary Syllables</h3>
+      <p class="vocab-purpose">Each bigram appears in your keywords: "pr" from prompt, "wo" from workflow, "at" from automation</p>
+      <div class="vocab-grid">
+        <span class="vocab-tag">at</span> <span class="vocab-tag">ti</span>
+        <span class="vocab-tag">io</span> <span class="vocab-tag">on</span>
+        <span class="vocab-tag">pr</span> <span class="vocab-tag">ro</span>
+        <span class="vocab-tag">om</span> <span class="vocab-tag">mp</span>
+        <span class="vocab-tag">sy</span> <span class="vocab-tag">st</span>
+        <span class="vocab-tag">te</span> <span class="vocab-tag">em</span>
+        <span class="vocab-tag">wo</span> <span class="vocab-tag">or</span>
+        <span class="vocab-tag">ow</span> <span class="vocab-tag">ho</span>
+        <span class="vocab-tag">ex</span> <span class="vocab-tag">xp</span>
+        <span class="vocab-tag">pl</span> <span class="vocab-tag">la</span>
+        <span class="vocab-tag">cr</span> <span class="vocab-tag">ea</span>
+        <span class="vocab-tag">re</span> <span class="vocab-tag">ar</span>
+        <span class="vocab-tag">de</span> <span class="vocab-tag">si</span>
+        <span class="vocab-tag">ig</span> <span class="vocab-tag">in</span>
+        <span class="vocab-tag">co</span> <span class="vocab-tag">pa</span>
+        <span class="vocab-tag">su</span> <span class="vocab-tag">ma</span>
+        <span class="vocab-tag">mo</span> <span class="vocab-tag">el</span>
+        <span class="vocab-tag">so</span> <span class="vocab-tag">al</span>
+        <span class="vocab-tag">bu</span> <span class="vocab-tag">fi</span>
+        <span class="vocab-tag">tr</span> <span class="vocab-tag">ri</span>
+        <span class="vocab-tag">to</span> <span class="vocab-tag">no</span>
+        <span class="vocab-tag">er</span> <span class="vocab-tag">wh</span>
+        <span class="vocab-tag">th</span>
+      </div>
+    </section>
+
+    <!-- Stage 2: Key Transitions -->
+    <section class="vocab-section">
+      <h2>Stage 2 — Key Transitions</h2>
+      <p class="vocab-purpose">Bigrams and chunks extracted from your vocabulary — "tion" from automation, "work" from workflow</p>
+
+      <h3>Bigrams (ranked by frequency)</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">at</span> <span class="vocab-tag">ti</span>
+        <span class="vocab-tag">io</span> <span class="vocab-tag">on</span>
+        <span class="vocab-tag">in</span> <span class="vocab-tag">te</span>
+        <span class="vocab-tag">re</span> <span class="vocab-tag">er</span>
+        <span class="vocab-tag">st</span> <span class="vocab-tag">pr</span>
+        <span class="vocab-tag">ro</span> <span class="vocab-tag">an</span>
+        <span class="vocab-tag">al</span> <span class="vocab-tag">en</span>
+        <span class="vocab-tag">ar</span> <span class="vocab-tag">de</span>
+        <span class="vocab-tag">ex</span> <span class="vocab-tag">pl</span>
+        <span class="vocab-tag">co</span> <span class="vocab-tag">mo</span>
+        <span class="vocab-tag">tr</span> <span class="vocab-tag">si</span>
+        <span class="vocab-tag">el</span> <span class="vocab-tag">ma</span>
+        <span class="vocab-tag">wo</span> <span class="vocab-tag">ow</span>
+        <span class="vocab-tag">sy</span> <span class="vocab-tag">cr</span>
+        <span class="vocab-tag">ea</span> <span class="vocab-tag">ig</span>
+        <span class="vocab-tag">mp</span> <span class="vocab-tag">ct</span>
+        <span class="vocab-tag">so</span> <span class="vocab-tag">su</span>
+        <span class="vocab-tag">bu</span> <span class="vocab-tag">fi</span>
+        <span class="vocab-tag">sh</span> <span class="vocab-tag">ho</span>
+        <span class="vocab-tag">wh</span> <span class="vocab-tag">th</span>
+      </div>
+
+      <h3>Chunks (word fragments)</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">tion</span> <span class="vocab-tag">atio</span>
+        <span class="vocab-tag">ation</span> <span class="vocab-tag">pro</span>
+        <span class="vocab-tag">prom</span> <span class="vocab-tag">proj</span>
+        <span class="vocab-tag">sys</span> <span class="vocab-tag">str</span>
+        <span class="vocab-tag">ruct</span> <span class="vocab-tag">work</span>
+        <span class="vocab-tag">flow</span> <span class="vocab-tag">ork</span>
+        <span class="vocab-tag">exp</span> <span class="vocab-tag">xpl</span>
+        <span class="vocab-tag">pla</span> <span class="vocab-tag">cre</span>
+        <span class="vocab-tag">ate</span> <span class="vocab-tag">arch</span>
+        <span class="vocab-tag">des</span> <span class="vocab-tag">dep</span>
+        <span class="vocab-tag">dat</span> <span class="vocab-tag">com</span>
+        <span class="vocab-tag">con</span> <span class="vocab-tag">tex</span>
+        <span class="vocab-tag">mod</span> <span class="vocab-tag">sol</span>
+        <span class="vocab-tag">ana</span> <span class="vocab-tag">int</span>
+        <span class="vocab-tag">gra</span> <span class="vocab-tag">trig</span>
+      </div>
+
+      <h3>Repetition Drills</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">pro pro pro</span>
+        <span class="vocab-tag">sys sys sys</span>
+        <span class="vocab-tag">tion tion tion</span>
+        <span class="vocab-tag">work work work</span>
+        <span class="vocab-tag">flow flow flow</span>
+        <span class="vocab-tag">ate ate ate</span>
+        <span class="vocab-tag">str str str</span>
+        <span class="vocab-tag">exp exp exp</span>
+        <span class="vocab-tag">com com com</span>
+        <span class="vocab-tag">aut aut aut</span>
+        <span class="vocab-tag">mod mod mod</span>
+        <span class="vocab-tag">int int int</span>
+      </div>
+    </section>
+
+    <!-- Stage 3: Keywords -->
+    <section class="vocab-section">
+      <h2>Stage 3 — Keywords</h2>
+      <p class="vocab-purpose">Build muscle memory for real vocabulary used in your daily work</p>
+
+      <h3>Single Words</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">n8n</span>
+        <span class="vocab-tag">workflow</span>
+        <span class="vocab-tag">automation</span>
+        <span class="vocab-tag">system</span>
+        <span class="vocab-tag">prompt</span>
+        <span class="vocab-tag">model</span>
+        <span class="vocab-tag">analysis</span>
+        <span class="vocab-tag">tools</span>
+        <span class="vocab-tag">project</span>
+        <span class="vocab-tag">integration</span>
+        <span class="vocab-tag">prototype</span>
+        <span class="vocab-tag">experiment</span>
+        <span class="vocab-tag">client</span>
+        <span class="vocab-tag">process</span>
+        <span class="vocab-tag">data</span>
+        <span class="vocab-tag">structure</span>
+        <span class="vocab-tag">evaluation</span>
+        <span class="vocab-tag">architecture</span>
+        <span class="vocab-tag">pipeline</span>
+        <span class="vocab-tag">trigger</span>
+        <span class="vocab-tag">execution</span>
+        <span class="vocab-tag">deployment</span>
+        <span class="vocab-tag">solution</span>
+        <span class="vocab-tag">design</span>
+        <span class="vocab-tag">context</span>
+        <span class="vocab-tag">token</span>
+        <span class="vocab-tag">generation</span>
+        <span class="vocab-tag">response</span>
+        <span class="vocab-tag">instruction</span>
+        <span class="vocab-tag">summary</span>
+        <span class="vocab-tag">api</span>
+        <span class="vocab-tag">json</span>
+        <span class="vocab-tag">cli</span>
+        <span class="vocab-tag">db</span>
+        <span class="vocab-tag">webhook</span>
+      </div>
+
+      <h3>Word Pairs</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">n8n workflow</span>
+        <span class="vocab-tag">workflow automation</span>
+        <span class="vocab-tag">automation system</span>
+        <span class="vocab-tag">system integration</span>
+        <span class="vocab-tag">prompt workflow</span>
+        <span class="vocab-tag">model analysis</span>
+        <span class="vocab-tag">client project</span>
+        <span class="vocab-tag">data analysis</span>
+        <span class="vocab-tag">project workflow</span>
+        <span class="vocab-tag">model evaluation</span>
+        <span class="vocab-tag">system architecture</span>
+        <span class="vocab-tag">pipeline trigger</span>
+        <span class="vocab-tag">api integration</span>
+        <span class="vocab-tag">json data</span>
+        <span class="vocab-tag">workflow execution</span>
+        <span class="vocab-tag">n8n automation</span>
+        <span class="vocab-tag">n8n integration</span>
+        <span class="vocab-tag">prompt model</span>
+        <span class="vocab-tag">tool integration</span>
+        <span class="vocab-tag">system design</span>
+      </div>
+    </section>
+
+    <!-- Stage 4: Command Phrases -->
+    <section class="vocab-section">
+      <h2>Stage 4 — Command Phrases</h2>
+      <p class="vocab-purpose">Practice prompt patterns you type daily</p>
+
+      <h3>Creation</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">create workflow</span>
+        <span class="vocab-tag">create simple workflow</span>
+        <span class="vocab-tag">create prototype</span>
+        <span class="vocab-tag">create system</span>
+        <span class="vocab-tag">create a simple prototype</span>
+        <span class="vocab-tag">build a new workflow</span>
+        <span class="vocab-tag">make it simpler</span>
+        <span class="vocab-tag">make it shorter</span>
+      </div>
+
+      <h3>Explanation</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">explain step by step</span>
+        <span class="vocab-tag">explain the process</span>
+        <span class="vocab-tag">explain the architecture</span>
+        <span class="vocab-tag">explain this system</span>
+        <span class="vocab-tag">explain how this works</span>
+        <span class="vocab-tag">show the simplest version</span>
+        <span class="vocab-tag">show the architecture</span>
+        <span class="vocab-tag">show me the workflow</span>
+      </div>
+
+      <h3>Comparison</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">compare these options</span>
+        <span class="vocab-tag">compare two approaches</span>
+        <span class="vocab-tag">compare tools</span>
+        <span class="vocab-tag">compare these two</span>
+        <span class="vocab-tag">what is better</span>
+        <span class="vocab-tag">which approach is simpler</span>
+      </div>
+
+      <h3>Debugging</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">what is wrong here</span>
+        <span class="vocab-tag">why does this happen</span>
+        <span class="vocab-tag">how can I fix this</span>
+        <span class="vocab-tag">what is the best solution</span>
+        <span class="vocab-tag">what is the error</span>
+        <span class="vocab-tag">find the problem</span>
+      </div>
+
+      <h3>Analysis</h3>
+      <div class="vocab-grid">
+        <span class="vocab-tag">summarize this</span>
+        <span class="vocab-tag">analyze the workflow</span>
+        <span class="vocab-tag">estimate the complexity</span>
+        <span class="vocab-tag">evaluate this approach</span>
+        <span class="vocab-tag">what tools should I use</span>
+        <span class="vocab-tag">what is the simplest approach</span>
+      </div>
+    </section>
+
+    <!-- Stage 5: Real Prompts -->
+    <section class="vocab-section">
+      <h2>Stage 5 — Real Prompts</h2>
+      <p class="vocab-purpose">Type full sentences exactly as you would to an AI</p>
+
+      <div class="vocab-list">
+        <div class="vocab-list-item">create a simple n8n workflow</div>
+        <div class="vocab-list-item">show the system architecture</div>
+        <div class="vocab-list-item">explain the process step by step</div>
+        <div class="vocab-list-item">compare these two approaches</div>
+        <div class="vocab-list-item">what is the simplest solution</div>
+        <div class="vocab-list-item">create a simple workflow for this task</div>
+        <div class="vocab-list-item">explain this step by step</div>
+        <div class="vocab-list-item">what is the best architecture for this</div>
+        <div class="vocab-list-item">show me the simplest version</div>
+        <div class="vocab-list-item">how can I automate this process</div>
+        <div class="vocab-list-item">create a prototype for this idea</div>
+        <div class="vocab-list-item">what tools should I use for this project</div>
+        <div class="vocab-list-item">compare these two tools and suggest the best one</div>
+        <div class="vocab-list-item">explain the workflow architecture step by step</div>
+        <div class="vocab-list-item">build a simple automation pipeline</div>
+        <div class="vocab-list-item">analyze the system and find the problem</div>
+        <div class="vocab-list-item">what is the simplest way to integrate this</div>
+        <div class="vocab-list-item">create a simple api for this workflow</div>
+        <div class="vocab-list-item">show me how to fix this error</div>
+        <div class="vocab-list-item">estimate the complexity of this project</div>
+        <div class="vocab-list-item">design a simple system for this use case</div>
+        <div class="vocab-list-item">please explain this system step by step</div>
+        <div class="vocab-list-item">create a simple prototype for this idea</div>
+        <div class="vocab-list-item">what is the simplest workflow for this project</div>
+      </div>
+    </section>
+
+    <!-- Training Summary -->
+    <section class="vocab-section">
+      <h2>Training Summary</h2>
+      <p class="subtitle-text">Stages 1-2 are derived from Stages 3-5 vocabulary — every practice pattern connects to real words</p>
+      <div class="vocab-summary">
+        <div class="summary-item">
+          <span class="summary-label">Finger groups</span>
+          <span class="summary-value">4</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Vocab syllables</span>
+          <span class="summary-value">45</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Bigrams</span>
+          <span class="summary-value">40</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Chunks</span>
+          <span class="summary-value">30</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Keywords</span>
+          <span class="summary-value">55</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Command phrases</span>
+          <span class="summary-value">35+</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Full prompts</span>
+          <span class="summary-value">24</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Initialize theme on page load
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('promptkeymind_theme');
+      const htmlElement = document.documentElement;
+
+      if (savedTheme) {
+        htmlElement.setAttribute('data-theme', savedTheme);
+      }
+    }
+
+    // Toggle theme on button click
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const htmlElement = document.documentElement;
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('promptkeymind_theme', newTheme);
+    });
+
+    // Initialize on load
+    initializeTheme();
+  </script>
+</body>
+</html>

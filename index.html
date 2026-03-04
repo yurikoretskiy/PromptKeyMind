@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptKeyMind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Ambient background glow -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">⌨</span>
+        <span class="logo-text">Prompt<span class="logo-accent">Key</span>Mind</span>
+      </div>
+
+      <nav class="stage-tabs" role="tablist">
+        <button class="stage-tab active" data-stage="1" role="tab" aria-selected="true">
+          <span class="tab-num">1</span>
+          <span class="tab-label">Letters</span>
+        </button>
+        <button class="stage-tab" data-stage="2" role="tab" aria-selected="false">
+          <span class="tab-num">2</span>
+          <span class="tab-label">Transitions</span>
+        </button>
+        <button class="stage-tab" data-stage="3" role="tab" aria-selected="false">
+          <span class="tab-num">3</span>
+          <span class="tab-label">Keywords</span>
+        </button>
+        <button class="stage-tab" data-stage="4" role="tab" aria-selected="false">
+          <span class="tab-num">4</span>
+          <span class="tab-label">Commands</span>
+        </button>
+        <button class="stage-tab" data-stage="5" role="tab" aria-selected="false">
+          <span class="tab-num">5</span>
+          <span class="tab-label">Prompts</span>
+        </button>
+      </nav>
+
+      <div class="header-controls">
+        <a href="vocab.html" class="btn-icon" title="Vocabulary" style="text-decoration:none;font-size:0.8rem;">📖</a>
+        <button class="btn-icon" id="theme-toggle" title="Toggle theme (T)">
+          <span class="theme-icon-dark">☀</span>
+          <span class="theme-icon-light">☾</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Stage Info Bar -->
+    <div class="stage-info">
+      <div class="stage-title">
+        <h2 id="stage-name">Stage 1 — Letter Warm-up</h2>
+        <p class="stage-hint" id="stage-hint">Wake up your fingers with syllable patterns</p>
+      </div>
+      <div class="stage-timer">
+        <span class="timer-label">Time</span>
+        <span class="timer-value" id="timer">2:00</span>
+      </div>
+    </div>
+
+    <!-- Key Progress Bar (Keybr-style) -->
+    <div class="key-progress-bar" id="key-progress">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-value" id="stat-wpm">0</span>
+        <span class="stat-label">WPM</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-accuracy">100%</span>
+        <span class="stat-label">Accuracy</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-progress">0%</span>
+        <span class="stat-label">Complete</span>
+      </div>
+      <div class="stat stat-streak">
+        <span class="stat-value" id="stat-streak">0</span>
+        <span class="stat-label">Day streak</span>
+      </div>
+    </div>
+
+    <!-- Typing Area -->
+    <div class="typing-area" id="typing-area">
+      <div class="typing-text" id="typing-text">
+        <!-- Populated by JS: spans per character -->
+      </div>
+      <!-- Hidden input to capture keystrokes -->
+      <input type="text" class="typing-input" id="typing-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-bar">
+      <button class="btn btn-secondary" id="btn-reset" title="Reset (Esc)">Reset</button>
+      <button class="btn btn-primary" id="btn-next" title="Next stage (→)">Next Stage →</button>
+    </div>
+
+    <!-- Virtual Keyboard -->
+    <div class="keyboard-section" id="keyboard-section">
+      <div class="keyboard-header">
+        <span class="keyboard-title">Keyboard</span>
+        <button class="btn-icon btn-small" id="keyboard-toggle" title="Toggle keyboard (K)">Hide ⌨</button>
+      </div>
+      <div class="keyboard-with-hands" id="keyboard-with-hands">
+        <div class="hand hand-left" id="hand-left">
+          <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left hand outline with 5 finger regions -->
+            <!-- Pinky (leftmost finger) -->
+            <path class="finger" data-finger="pinky-l"
+              d="M18,90 L16,60 Q15,48 20,46 Q25,44 26,56 L28,82 Z"
+              />
+            <!-- Ring finger -->
+            <path class="finger" data-finger="ring-l"
+              d="M32,82 L30,38 Q29,24 35,22 Q41,20 42,34 L42,78 Z"
+              />
+            <!-- Middle finger -->
+            <path class="finger" data-finger="middle-l"
+              d="M46,78 L46,28 Q46,14 52,12 Q58,10 58,24 L58,74 Z"
+              />
+            <!-- Index finger -->
+            <path class="finger" data-finger="index-l"
+              d="M62,76 L63,40 Q63,26 69,24 Q75,22 75,36 L74,78 Z"
+              />
+            <!-- Thumb (angled outward to the right) -->
+            <path class="finger" data-finger="thumb"
+              d="M78,100 L88,82 Q94,72 100,76 Q106,80 98,92 L84,112 Z"
+              />
+            <!-- Palm -->
+            <path class="hand-palm"
+              d="M14,90 L28,82 L42,78 L58,74 L74,78 L84,112
+                 Q86,130 78,155 L68,175 Q58,190 42,192
+                 Q26,194 16,180 L10,160 Q6,140 8,120 Z"
+              />
+          </svg>
+        </div>
+        <div class="keyboard-container" id="keyboard-container">
+          <!-- Populated by keyboard.js -->
+        </div>
+        <div class="hand hand-right" id="hand-right">
+          <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Right hand outline with 5 finger regions (mirrored) -->
+            <!-- Pinky (rightmost finger) -->
+            <path class="finger" data-finger="pinky-r"
+              d="M102,90 L104,60 Q105,48 100,46 Q95,44 94,56 L92,82 Z"
+              />
+            <!-- Ring finger -->
+            <path class="finger" data-finger="ring-r"
+              d="M88,82 L90,38 Q91,24 85,22 Q79,20 78,34 L78,78 Z"
+              />
+            <!-- Middle finger -->
+            <path class="finger" data-finger="middle-r"
+              d="M74,78 L74,28 Q74,14 68,12 Q62,10 62,24 L62,74 Z"
+              />
+            <!-- Index finger -->
+            <path class="finger" data-finger="index-r"
+              d="M58,76 L57,40 Q57,26 51,24 Q45,22 45,36 L46,78 Z"
+              />
+            <!-- Thumb (angled outward to the left) -->
+            <path class="finger" data-finger="thumb"
+              d="M42,100 L32,82 Q26,72 20,76 Q14,80 22,92 L36,112 Z"
+              />
+            <!-- Palm -->
+            <path class="hand-palm"
+              d="M106,90 L92,82 L78,78 L62,74 L46,78 L36,112
+                 Q34,130 42,155 L52,175 Q62,190 78,192
+                 Q94,194 104,180 L110,160 Q114,140 112,120 Z"
+              />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Goal Footer -->
+    <footer class="app-footer">
+      <div class="daily-goal">
+        <span class="goal-label">Daily goal</span>
+        <div class="goal-bar">
+          <div class="goal-fill" id="goal-fill" style="width: 0%"></div>
+        </div>
+        <span class="goal-text" id="goal-text">0 / 10 min</span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
