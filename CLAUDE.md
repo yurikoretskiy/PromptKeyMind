@@ -44,9 +44,9 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 │   ├── stats.js        ← localStorage persistence, per-key accuracy, streaks
 │   └── data.js         ← word lists, phrases, sentences (user-editable)
 ├── docs/
-│   └── HANDOVER.md     ← project handover document
-├── Design examples/    ← reference screenshots (gitignored)
-└── start.md            ← original brainstorming document (gitignored)
+│   ├── HANDOVER.md     ← project handover document
+│   ├── screenshots/    ← verification & demo screenshots (gitignored)
+│   └── archive/        ← brainstorming docs & design refs (gitignored)
 ```
 
 ## Key Conventions

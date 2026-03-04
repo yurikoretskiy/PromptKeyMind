@@ -10,12 +10,11 @@ Thumbs.db
 
 # Dev/test artifacts
 .playwright-mcp/
-*.png
 *.log
 
-# Project-specific (not source)
-Design examples/
-start.md
+# Archive & screenshots (kept locally, not in repo)
+docs/screenshots/
+docs/archive/
 
 # Future-proofing
 node_modules/
