@@ -83,8 +83,8 @@ Format: `v{major}.{minor} — {short description}`
 - v0.2 — Visual refinement: Mac keyboard, themes, hands, vocab page
 - v0.3 — Data coherence: derive backwards, word wrapping, documentation
 - v0.4 — Deploy to VPS, backlog, vision docs
-- v0.5 — Offline local version with bundled fonts
-- **v1.0** — Stable release: stage persistence, time-up modal (continue/next), automated tests, cursor fix
+- **v1.0** — Stable release: offline local version with bundled fonts, deployed to VPS
+- **v1.1** — Stage persistence, time-up modal (continue/next), cursor fix, automated test suite (22 tests)
 
 Push to GitHub = milestone marker. Update version in commit messages.
 
