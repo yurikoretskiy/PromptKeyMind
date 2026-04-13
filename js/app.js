@@ -16,8 +16,8 @@ class App {
     this.keyboard = new VirtualKeyboard('keyboard-container');
     this.stats = new StatsManager();
 
-    // State
-    this.currentStage = 1;
+    // State — restore last stage from localStorage
+    this.currentStage = parseInt(localStorage.getItem('promptkeymind_stage')) || 1;
     this.timerInterval = null;
     this.timeRemaining = 120; // seconds
     this.sessionActive = false;
@@ -157,6 +157,12 @@ class App {
     this.timeRemaining = stage.duration;
     this.sessionActive = false;
 
+    // Persist last stage
+    localStorage.setItem('promptkeymind_stage', stageId);
+
+    // Dismiss any open time-up modal
+    this._dismissTimeUpModal();
+
     // Update UI
     this.el.stageName.textContent = stage.name;
     this.el.stageHint.textContent = stage.hint;
@@ -239,8 +245,87 @@ class App {
   _onTimeUp() {
     const results = this.typing.getResults();
     this._recordAndUpdate(results);
-    // Auto-advance after a short delay
-    setTimeout(() => this._nextStage(), 1500);
+    this._showTimeUpModal();
+  }
+
+  // --- Time-up Modal ---
+
+  _showTimeUpModal() {
+    this._dismissTimeUpModal();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'timeup-overlay';
+    overlay.id = 'timeup-overlay';
+
+    const modal = document.createElement('div');
+    modal.className = 'timeup-modal';
+
+    const title = document.createElement('h3');
+    title.textContent = "Time's up!";
+    modal.appendChild(title);
+
+    const stats = document.createElement('p');
+    stats.className = 'timeup-stats';
+    stats.textContent = `WPM: ${this.typing.getWPM()} \u00B7 Accuracy: ${this.typing.getAccuracy()}%`;
+    modal.appendChild(stats);
+
+    const actions = document.createElement('div');
+    actions.className = 'timeup-actions';
+
+    const stage = getStage(this.currentStage);
+    const nextId = this.currentStage < 5 ? this.currentStage + 1 : 1;
+    const nextStage = getStage(nextId);
+
+    const btnContinue = document.createElement('button');
+    btnContinue.className = 'btn btn-primary';
+    btnContinue.textContent = `Continue ${stage.name.split(' \u2014 ')[1]}`;
+    btnContinue.addEventListener('click', () => {
+      this._dismissTimeUpModal();
+      this._resetExercise();
+    });
+
+    const btnNext = document.createElement('button');
+    btnNext.className = 'btn btn-secondary';
+    btnNext.textContent = `Next \u2192 ${nextStage.name.split(' \u2014 ')[1]}`;
+    btnNext.addEventListener('click', () => {
+      this._dismissTimeUpModal();
+      this._nextStage();
+    });
+
+    actions.appendChild(btnContinue);
+    actions.appendChild(btnNext);
+    modal.appendChild(actions);
+
+    const hint = document.createElement('p');
+    hint.className = 'timeup-hint';
+    hint.textContent = 'Enter = continue \u00B7 \u2192 = next stage';
+    modal.appendChild(hint);
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // Keyboard shortcuts: Enter = continue, → = next
+    this._timeUpKeyHandler = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this._dismissTimeUpModal();
+        this._resetExercise();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        this._dismissTimeUpModal();
+        this._nextStage();
+      }
+    };
+    document.addEventListener('keydown', this._timeUpKeyHandler);
+  }
+
+  _dismissTimeUpModal() {
+    const overlay = document.getElementById('timeup-overlay');
+    if (overlay) overlay.remove();
+    if (this._timeUpKeyHandler) {
+      document.removeEventListener('keydown', this._timeUpKeyHandler);
+      this._timeUpKeyHandler = null;
+    }
   }
 
   // --- Exercise Completion ---
@@ -248,7 +333,6 @@ class App {
   _onExerciseComplete(results) {
     this._stopTimer();
     this._recordAndUpdate(results);
-    // Brief pause then allow next action
   }
 
   _recordAndUpdate(results) {

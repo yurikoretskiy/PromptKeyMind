@@ -848,3 +848,58 @@ body {
 .app-container > *:nth-child(7) { animation-delay: 0.35s; }
 .app-container > *:nth-child(8) { animation-delay: 0.4s; }
 .app-container > *:nth-child(9) { animation-delay: 0.45s; }
+
+/* --- Time-up Modal --- */
+.timeup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fade-in 0.2s ease;
+}
+
+.timeup-modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px 40px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.timeup-modal h3 {
+  font-family: var(--font-ui);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--text-primary);
+}
+
+.timeup-stats {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin: 0 0 24px 0;
+}
+
+.timeup-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.timeup-actions .btn {
+  min-width: 140px;
+}
+
+.timeup-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 16px 0 0 0;
+}

@@ -48,6 +48,13 @@ Personal typing trainer focused on real workflow vocabulary — prompts, command
 │   ├── stages.js       ← 5 stage definitions + exercise generation
 │   ├── stats.js        ← localStorage persistence, per-key accuracy, streaks
 │   └── data.js         ← word lists, phrases, sentences (user-editable)
+├── local/              ← offline version with bundled fonts
+│   ├── index.html
+│   ├── vocab.html
+│   ├── css/fonts.css   ← @font-face declarations
+│   ├── fonts/          ← woff2 files (JetBrains Mono + Outfit)
+│   ├── js/             ← same JS as root
+│   └── test.mjs        ← Playwright test suite
 ├── docs/
 │   ├── screenshots/    ← verification & demo screenshots (gitignored)
 │   └── archive/        ← brainstorming docs & design refs (gitignored)
@@ -76,6 +83,7 @@ Format: `v{major}.{minor} — {short description}`
 - v0.2 — Visual refinement: Mac keyboard, themes, hands, vocab page
 - v0.3 — Data coherence: derive backwards, word wrapping, documentation
 - v0.4 — Deploy to VPS, backlog, vision docs
+- v0.5 — Offline local version, stage persistence, time-up modal
 
 Push to GitHub = milestone marker. Update version in commit messages.
 
@@ -88,6 +96,9 @@ Push to GitHub = milestone marker. Update version in commit messages.
 ## Testing
 
 - Open `index.html` in Chrome or visit https://type.yurykoretskiy.space
+- Local version: `typeme` alias (starts server + opens browser), `typeme stop` to kill
+- Automated: `cd local && node test.mjs` (requires playwright in node_modules)
 - All 5 stages should be navigable and typeable
-- Stats persist across page reloads (localStorage)
+- Stage selection and theme persist across page reloads (localStorage)
+- Time-up modal appears when timer expires — Continue or Next stage
 - Theme toggle switches instantly between dark/light
