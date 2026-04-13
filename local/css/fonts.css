@@ -1,0 +1,18 @@
+/* Local @font-face declarations for offline use */
+/* Variable fonts — single file per family, all weights */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/JetBrainsMono.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/Outfit.woff2) format('woff2');
+}
