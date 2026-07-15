@@ -85,6 +85,9 @@ Format: `v{major}.{minor} — {short description}`
 - v0.4 — Deploy to VPS, backlog, vision docs
 - **v1.0** — Stable release: offline local version with bundled fonts, deployed to VPS
 - **v1.1** — Stage persistence, time-up modal (continue/next), cursor fix, automated test suite (22 tests)
+- v1.2 — Focus-frame design: 3 switchable concepts (Studio/Terminal/Spotlight), preventScroll fix, promptkeymind subdomain
+- v1.3 — Fix line-wrap caret glitch, modal record-loop, keyboard auto-scale, stage 1 letter/transition continuity
+- v1.4 — Full real MacBook keyboard layout (esc/F-row/tab/caps lock/return/brackets/arrows), unused keys dimmed
 
 Push to GitHub = milestone marker. Update version in commit messages.
 
