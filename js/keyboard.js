@@ -4,11 +4,12 @@
    active key highlighting, toggle visibility.
    ============================================ */
 
-import { KEYBOARD_LAYOUT, KEY_FINGERS, HOME_KEYS } from './data.js';
+import { KEYBOARD_LAYOUT, KEY_FINGERS, HOME_KEYS, DECORATIVE_KEYS } from './data.js';
 
 // Modifier/special keys that get wider sizing and labels
 const MODIFIER_KEYS = {
   'shift-l': { label: 'Shift', cssClass: 'key-shift' },
+  'shift-r': { label: 'Shift', cssClass: 'key-shift' },
   'fn': { label: 'fn', cssClass: 'key-mod-sm' },
   'ctrl': { label: '⌃', cssClass: 'key-mod-sm' },
   'opt': { label: '⌥', cssClass: 'key-mod-sm' },
@@ -16,6 +17,26 @@ const MODIFIER_KEYS = {
   'cmd-r': { label: '⌘', cssClass: 'key-mod' },
   'opt-r': { label: '⌥', cssClass: 'key-mod-sm' },
   ' ': { label: '', cssClass: 'key-space' },
+  'esc': { label: 'esc', cssClass: 'key-esc' },
+  'f1': { label: 'F1', cssClass: 'key-fkey' },
+  'f2': { label: 'F2', cssClass: 'key-fkey' },
+  'f3': { label: 'F3', cssClass: 'key-fkey' },
+  'f4': { label: 'F4', cssClass: 'key-fkey' },
+  'f5': { label: 'F5', cssClass: 'key-fkey' },
+  'f6': { label: 'F6', cssClass: 'key-fkey' },
+  'f7': { label: 'F7', cssClass: 'key-fkey' },
+  'f8': { label: 'F8', cssClass: 'key-fkey' },
+  'f9': { label: 'F9', cssClass: 'key-fkey' },
+  'f10': { label: 'F10', cssClass: 'key-fkey' },
+  'f11': { label: 'F11', cssClass: 'key-fkey' },
+  'f12': { label: 'F12', cssClass: 'key-fkey' },
+  'delete': { label: '⌫', cssClass: 'key-mod' },
+  'tab': { label: '⇥', cssClass: 'key-tab' },
+  'capslock': { label: '⇪', cssClass: 'key-capslock' },
+  'return': { label: '⏎', cssClass: 'key-return' },
+  'left': { label: '←', cssClass: 'key-arrow' },
+  'right': { label: '→', cssClass: 'key-arrow' },
+  'updown': { label: '', cssClass: 'key-arrow key-updown' },
 };
 
 const DISPLAY_LABELS = {
@@ -88,7 +109,16 @@ export class VirtualKeyboard {
         keyEl.className = 'key';
 
         const mod = MODIFIER_KEYS[key];
-        if (mod) {
+        if (key === 'updown') {
+          mod.cssClass.split(' ').forEach(c => keyEl.classList.add(c));
+          keyEl.classList.add('key-modifier');
+          const up = document.createElement('span');
+          up.textContent = '▲';
+          const down = document.createElement('span');
+          down.textContent = '▼';
+          keyEl.appendChild(up);
+          keyEl.appendChild(down);
+        } else if (mod) {
           keyEl.classList.add(mod.cssClass);
           keyEl.textContent = mod.label;
           keyEl.classList.add('key-modifier');
@@ -96,6 +126,9 @@ export class VirtualKeyboard {
           const label = DISPLAY_LABELS[key] || key.toUpperCase();
           keyEl.textContent = label;
         }
+
+        // Decorative keys (real-keyboard orientation only — never drilled)
+        if (DECORATIVE_KEYS.has(key)) keyEl.classList.add('key-inactive');
 
         // Finger zone
         const finger = KEY_FINGERS[key];

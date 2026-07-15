@@ -679,18 +679,12 @@ body {
   border: none;
 }
 
+/* Mac stagger — every row starts flush; the leading key's own width
+   (tab/caps lock/shift) creates the natural offset, matching a real keyboard */
 .keyboard-row {
   display: flex;
   gap: 4px;
 }
-
-/* Mac ISO stagger — left-aligned with padding matching real key positions
-   1u = 56px (52px key + 4px gap) */
-.keyboard-row:nth-child(1) { padding-left: 0; }       /* number row: flush left */
-.keyboard-row:nth-child(2) { padding-left: 28px; }     /* QWERTY: ~0.5u indent */
-.keyboard-row:nth-child(3) { padding-left: 42px; }     /* home row: ~0.75u indent */
-.keyboard-row:nth-child(4) { padding-left: 0; }        /* bottom: shift starts flush */
-.keyboard-row:nth-child(5) { padding-left: 0; }        /* modifiers: flush */
 
 /* Base key style — Mac-like rounded rectangles */
 .key {
@@ -764,6 +758,38 @@ body {
 .key-mod-sm { width: 44px; font-size: 0.9rem; }
 .key-mod { width: 54px; font-size: 0.9rem; }
 .key-space { width: 260px; }
+
+/* Real-keyboard orientation keys — function row, tab, caps lock, return,
+   brackets, arrows. Present for shape, never trained, always low-visibility. */
+.key.key-inactive {
+  opacity: 0.3;
+}
+
+.key.key-inactive::after {
+  opacity: 0;
+}
+
+.key-esc, .key-fkey {
+  width: 42px;
+  height: 34px;
+  font-size: 0.65rem;
+}
+
+.key-tab { width: 66px; }
+.key-capslock { width: 74px; }
+.key-return { width: 84px; }
+
+.key-arrow {
+  width: 38px;
+  font-size: 0.75rem;
+}
+
+.key-updown {
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.6rem;
+  line-height: 1;
+}
 
 /* Finger Legend (hidden — replaced by hand SVGs) */
 .finger-legend {

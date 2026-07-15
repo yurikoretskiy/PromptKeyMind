@@ -198,19 +198,33 @@ export const STARTER_VERBS = [
 // All trackable keys
 export const TRACKED_KEYS = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
 
-// Mac keyboard layout (English only, matching MacBook Air/Pro)
+// Full Mac keyboard layout (English only, matching MacBook Air/Pro).
+// Only the letters/digits/punctuation actually drilled in exercises get
+// finger-color + highlight treatment (see KEY_FINGERS); everything else
+// (function row, tab, caps lock, return, brackets, arrows...) renders
+// low-visibility, present only for real-keyboard orientation.
 export const KEYBOARD_LAYOUT = [
-  // Row 1: number row
-  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
-  // Row 2: QWERTY
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  // Row 3: home row
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';'],
-  // Row 4: bottom row (with shift placeholders)
-  ['shift-l', '`', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
-  // Row 5: bottom modifiers + space
-  ['fn', 'ctrl', 'opt', 'cmd', ' ', 'cmd-r', 'opt-r'],
+  // Row 1: esc + function row
+  ['esc', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'],
+  // Row 2: number row
+  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'delete'],
+  // Row 3: QWERTY
+  ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
+  // Row 4: home row
+  ['capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'return'],
+  // Row 5: bottom row
+  ['shift-l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'shift-r'],
+  // Row 6: modifiers + space + arrows
+  ['fn', 'ctrl', 'opt', 'cmd', ' ', 'cmd-r', 'opt-r', 'left', 'updown', 'right'],
 ];
+
+// Keys rendered for real-keyboard orientation only — never targeted by
+// exercises, never finger-colored or highlighted, always low-visibility.
+export const DECORATIVE_KEYS = new Set([
+  'esc', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
+  'delete', 'tab', 'capslock', 'return', '[', ']', '\\', 'shift-r',
+  'left', 'updown', 'right',
+]);
 
 // Finger assignment per key
 export const KEY_FINGERS = {
