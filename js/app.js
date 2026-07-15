@@ -81,6 +81,10 @@ class App {
     });
 
     this.el.typingInput.addEventListener('keydown', (e) => {
+      // Ignore typing while the time-up modal is open — otherwise the timer
+      // restarts, expires again next tick, and re-triggers the modal in a loop
+      if (document.getElementById('timeup-overlay')) return;
+
       // Prevent default for special keys we handle
       if (e.key === 'Backspace') {
         e.preventDefault();

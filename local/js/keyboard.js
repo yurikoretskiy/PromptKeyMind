@@ -33,6 +33,45 @@ export class VirtualKeyboard {
     this.handLeft = document.getElementById('hand-left');
     this.handRight = document.getElementById('hand-right');
     this._render();
+    this._setupAutoScale();
+  }
+
+  /**
+   * Scale the keyboard+hands block down as one unit when it is wider than
+   * the available space (browser zoom, narrow window). The px-based key
+   * layout stays intact; only the rendered size shrinks.
+   */
+  _setupAutoScale() {
+    this.wrapper = document.getElementById('keyboard-with-hands');
+    if (!this.wrapper || typeof ResizeObserver === 'undefined') return;
+
+    const apply = () => this._applyScale();
+    this._resizeObserver = new ResizeObserver(apply);
+    this._resizeObserver.observe(this.wrapper.parentElement);
+    window.addEventListener('resize', apply);
+  }
+
+  _applyScale() {
+    const wrapper = this.wrapper;
+    if (!wrapper || !this.isVisible) return;
+
+    // Natural (unscaled) width: keyboard + both hands + flex gaps
+    const gap = 12;
+    const natural = this.container.offsetWidth +
+      (this.handLeft ? this.handLeft.offsetWidth + gap : 0) +
+      (this.handRight ? this.handRight.offsetWidth + gap : 0);
+    const avail = wrapper.parentElement.clientWidth;
+
+    if (natural > avail && avail > 0) {
+      const s = avail / natural;
+      wrapper.style.transformOrigin = 'top center';
+      wrapper.style.transform = `scale(${s})`;
+      // transform doesn't affect layout height — set it explicitly
+      wrapper.style.height = (this.container.offsetHeight * s) + 'px';
+    } else {
+      wrapper.style.transform = '';
+      wrapper.style.height = '';
+    }
   }
 
   _render() {
@@ -136,11 +175,7 @@ export class VirtualKeyboard {
   }
 
   toggle() {
-    this.isVisible = !this.isVisible;
-    this.container.classList.toggle('hidden', !this.isVisible);
-    // Hide/show the hand SVGs along with the keyboard
-    const handsWrapper = document.getElementById('keyboard-with-hands');
-    if (handsWrapper) handsWrapper.classList.toggle('hidden', !this.isVisible);
+    this.setVisible(!this.isVisible);
     return this.isVisible;
   }
 
@@ -148,6 +183,14 @@ export class VirtualKeyboard {
     this.isVisible = visible;
     this.container.classList.toggle('hidden', !visible);
     const handsWrapper = document.getElementById('keyboard-with-hands');
-    if (handsWrapper) handsWrapper.classList.toggle('hidden', !visible);
+    if (handsWrapper) {
+      handsWrapper.classList.toggle('hidden', !visible);
+      if (!visible) {
+        // Clear inline scale so the max-height hide transition can collapse
+        handsWrapper.style.transform = '';
+        handsWrapper.style.height = '';
+      }
+    }
+    if (visible) this._applyScale();
   }
 }

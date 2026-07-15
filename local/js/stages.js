@@ -35,8 +35,13 @@ export const STAGES = [
       const group = WARMUP.fingerGroups[Math.floor(Math.random() * WARMUP.fingerGroups.length)];
       const letters = group.keys.map(k => [k, k, k]).flat();
 
-      // Pick syllables that use these finger's letters, plus general ones
-      const syllables = pick(WARMUP.syllables, 16);
+      // Continuation: syllables must be built from the letters just drilled.
+      // Prefer syllables whose BOTH letters are in the group, then those
+      // containing at least one group letter.
+      const inGroup = new Set(group.keys);
+      const fully = WARMUP.syllables.filter(s => [...s].every(c => inGroup.has(c)));
+      const partly = WARMUP.syllables.filter(s => ![...s].every(c => inGroup.has(c)) && [...s].some(c => inGroup.has(c)));
+      const syllables = [...shuffle(fully), ...shuffle(partly)].slice(0, 16);
 
       const parts = [
         ...shuffle(letters),

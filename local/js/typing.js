@@ -47,7 +47,6 @@ export class TypingEngine {
         const span = document.createElement('span');
         span.className = 'char';
         span.textContent = word[i];
-        if (charIndex === 0) span.classList.add('current');
         wordEl.appendChild(span);
         this.chars.push(span);
         charIndex++;
@@ -63,6 +62,9 @@ export class TypingEngine {
         charIndex++;
       }
     });
+
+    this._currentEls = [];
+    this._setCurrent(0);
 
     // Highlight first key
     if (this.onKeyHighlight && text.length > 0) {
@@ -97,12 +99,10 @@ export class TypingEngine {
     this.keyStats[expectedLower].total++;
 
     if (key === expected) {
-      charEl.classList.remove('current');
       charEl.classList.add('correct');
       this.correctCount++;
       this.keyStats[expectedLower].correct++;
     } else {
-      charEl.classList.remove('current');
       charEl.classList.add('incorrect');
       this.errorCount++;
     }
@@ -111,10 +111,12 @@ export class TypingEngine {
 
     // Set next character as current
     if (this.currentIndex < this.text.length) {
-      this.chars[this.currentIndex].classList.add('current');
+      this._setCurrent(this.currentIndex);
       if (this.onKeyHighlight) {
         this.onKeyHighlight(this.text[this.currentIndex]);
       }
+    } else {
+      this._setCurrent(-1); // clear caret at end
     }
 
     this._emitUpdate();
@@ -136,17 +138,12 @@ export class TypingEngine {
   handleBackspace() {
     if (this.currentIndex <= 0) return;
 
-    // Remove current marker
-    if (this.currentIndex < this.text.length) {
-      this.chars[this.currentIndex].classList.remove('current');
-    }
-
     this.currentIndex--;
     const charEl = this.chars[this.currentIndex];
     const wasCorrect = charEl.classList.contains('correct');
 
     charEl.classList.remove('correct', 'incorrect');
-    charEl.classList.add('current');
+    this._setCurrent(this.currentIndex);
 
     if (wasCorrect) {
       this.correctCount--;
@@ -210,6 +207,31 @@ export class TypingEngine {
       keyStats: { ...this.keyStats },
       elapsed: this.startTime ? Date.now() - this.startTime : 0,
     };
+  }
+
+  /**
+   * Mark the char at index as current, handling line-wrap:
+   * when the current char is the space where the browser wraps the line,
+   * the caret is drawn at the start of the next line instead of the
+   * right edge of the finished one.
+   */
+  _setCurrent(index) {
+    if (this._currentEls) {
+      this._currentEls.forEach(el => el.classList.remove('current', 'current-wrap'));
+    }
+    this._currentEls = [];
+    const el = this.chars[index];
+    if (!el) return;
+
+    const next = this.chars[index + 1];
+    if (el.classList.contains('char-space') && next && next.offsetTop > el.offsetTop) {
+      // Line wraps after this space — caret goes to the next line's first char
+      next.classList.add('current-wrap');
+      this._currentEls.push(next);
+    } else {
+      el.classList.add('current');
+      this._currentEls.push(el);
+    }
   }
 
   _emitUpdate() {
