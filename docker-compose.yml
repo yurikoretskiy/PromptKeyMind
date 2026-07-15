@@ -12,7 +12,7 @@ services:
       - n8n_default
     labels:
       - traefik.enable=true
-      - traefik.http.routers.promptkeymind.rule=Host(`type.yurykoretskiy.space`)
+      - traefik.http.routers.promptkeymind.rule=Host(`type.yurykoretskiy.space`) || Host(`promptkeymind.yurykoretskiy.space`)
       - traefik.http.routers.promptkeymind.tls=true
       - traefik.http.routers.promptkeymind.tls.certresolver=mytlschallenge
       - traefik.http.services.promptkeymind.loadbalancer.server.port=80

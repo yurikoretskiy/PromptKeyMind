@@ -42,11 +42,13 @@ class App {
       themeToggle: document.getElementById('theme-toggle'),
       keyboardToggle: document.getElementById('keyboard-toggle'),
       stageTabs: document.querySelectorAll('.stage-tab'),
+      designDots: document.querySelectorAll('.design-dot'),
     };
 
     this._setupCallbacks();
     this._setupEventListeners();
     this._loadTheme();
+    this._loadDesign();
     this._loadKeyboardPref();
     this._updateKeyProgress();
     this._updateDailyGoal();
@@ -75,7 +77,7 @@ class App {
   _setupEventListeners() {
     // Typing input
     this.el.typingArea.addEventListener('click', () => {
-      this.el.typingInput.focus();
+      this.el.typingInput.focus({ preventScroll: true });
     });
 
     this.el.typingInput.addEventListener('keydown', (e) => {
@@ -139,14 +141,21 @@ class App {
       });
     });
 
+    // Design concept switcher
+    this.el.designDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        this._setDesign(dot.getAttribute('data-design-opt'));
+      });
+    });
+
     // Buttons
     this.el.btnReset.addEventListener('click', () => this._resetExercise());
     this.el.btnNext.addEventListener('click', () => this._nextStage());
     this.el.themeToggle.addEventListener('click', () => this._toggleTheme());
     this.el.keyboardToggle.addEventListener('click', () => this._toggleKeyboard());
 
-    // Auto-focus input on load
-    this.el.typingInput.focus();
+    // Auto-focus input on load (preventScroll: don't let focus scroll the header away)
+    this.el.typingInput.focus({ preventScroll: true });
   }
 
   // --- Stage Management ---
@@ -189,7 +198,7 @@ class App {
 
     // Focus input
     this.el.typingInput.value = '';
-    this.el.typingInput.focus();
+    this.el.typingInput.focus({ preventScroll: true });
   }
 
   _switchStage(stageId) {
@@ -387,6 +396,21 @@ class App {
     if (saved) {
       document.documentElement.setAttribute('data-theme', saved);
     }
+  }
+
+  // --- Design Concept ---
+
+  _setDesign(name) {
+    document.documentElement.setAttribute('data-design', name);
+    localStorage.setItem('promptkeymind_design', name);
+    this.el.designDots.forEach(dot => {
+      dot.classList.toggle('active', dot.getAttribute('data-design-opt') === name);
+    });
+  }
+
+  _loadDesign() {
+    const saved = localStorage.getItem('promptkeymind_design') || 'studio';
+    this._setDesign(saved);
   }
 
   // --- Keyboard Toggle ---
