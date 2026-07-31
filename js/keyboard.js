@@ -4,7 +4,7 @@
    active key highlighting, toggle visibility.
    ============================================ */
 
-import { KEYBOARD_LAYOUT, KEY_FINGERS, HOME_KEYS, DECORATIVE_KEYS } from './data.js';
+import { KEYBOARD_LAYOUT, KEY_FINGERS, HOME_KEYS, DECORATIVE_KEYS } from './data.js?v=1.6';
 
 // Modifier/special keys that get wider sizing and labels
 const MODIFIER_KEYS = {

@@ -4,10 +4,10 @@
    stages, stats, timer, and UI.
    ============================================ */
 
-import { TypingEngine } from './typing.js';
-import { VirtualKeyboard } from './keyboard.js';
-import { STAGES, getStage, generateExercise } from './stages.js';
-import { StatsManager } from './stats.js';
+import { TypingEngine } from './typing.js?v=1.6';
+import { VirtualKeyboard } from './keyboard.js?v=1.6';
+import { STAGES, getStage, generateExercise } from './stages.js?v=1.6';
+import { StatsManager } from './stats.js?v=1.6';
 
 class App {
   constructor() {

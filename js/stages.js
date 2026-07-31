@@ -3,7 +3,7 @@
    5 training stages with exercise generation.
    ============================================ */
 
-import { WARMUP, TRANSITIONS, KEYWORDS, COMMANDS, PROMPTS } from './data.js';
+import { WARMUP, TRANSITIONS, KEYWORDS, COMMANDS, PROMPTS } from './data.js?v=1.6';
 
 /**
  * Shuffle an array (Fisher-Yates).

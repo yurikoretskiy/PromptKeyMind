@@ -710,10 +710,13 @@ body {
 }
 
 .keyboard-container.hidden {
+  width: 0;
+  max-width: 0;
   max-height: 0;
   opacity: 0;
-  padding: 0 20px;
+  padding: 0;
   border: none;
+  pointer-events: none;
 }
 
 /* Mac stagger — every row starts flush; the leading key's own width
