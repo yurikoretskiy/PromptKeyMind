@@ -213,17 +213,28 @@ export class VirtualKeyboard {
   }
 
   setVisible(visible) {
-    this.isVisible = visible;
-    this.container.classList.toggle('hidden', !visible);
+    this.setVisualAid({ keyboard: visible, hands: visible });
+  }
+
+  setVisualAid({ keyboard = true, hands = true }) {
+    const showKeyboard = Boolean(keyboard);
+    const showHands = Boolean(hands);
+
+    this.isVisible = showKeyboard || showHands;
+    this.container.classList.toggle('hidden', !showKeyboard);
     const handsWrapper = document.getElementById('keyboard-with-hands');
+    const handEls = [this.handLeft, this.handRight].filter(Boolean);
     if (handsWrapper) {
-      handsWrapper.classList.toggle('hidden', !visible);
-      if (!visible) {
+      handsWrapper.classList.toggle('hidden', !this.isVisible);
+      handsWrapper.classList.toggle('hands-only', showHands && !showKeyboard);
+      handsWrapper.classList.toggle('keyboard-only', showKeyboard && !showHands);
+      handEls.forEach(hand => hand.classList.toggle('hidden', !showHands));
+      if (!this.isVisible) {
         // Clear inline scale so the max-height hide transition can collapse
         handsWrapper.style.transform = '';
         handsWrapper.style.height = '';
       }
     }
-    if (visible) this._applyScale();
+    if (this.isVisible) this._applyScale();
   }
 }

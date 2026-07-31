@@ -114,7 +114,12 @@
     <div class="keyboard-section" id="keyboard-section">
       <div class="keyboard-header">
         <span class="keyboard-title">Keyboard</span>
-        <button class="btn-icon btn-small" id="keyboard-toggle" title="Toggle keyboard (K)">Hide ⌨</button>
+        <div class="visual-aid-switcher" role="group" aria-label="Visual aid">
+          <button class="visual-aid-btn" data-visual-aid="focus" aria-pressed="false">Focus</button>
+          <button class="visual-aid-btn" data-visual-aid="hands" aria-pressed="false">Hands</button>
+          <button class="visual-aid-btn" data-visual-aid="keyboard" aria-pressed="false">Keyboard</button>
+          <button class="visual-aid-btn active" data-visual-aid="tutor" aria-pressed="true">Tutor</button>
+        </div>
       </div>
       <div class="keyboard-with-hands" id="keyboard-with-hands">
         <div class="hand hand-left" id="hand-left">

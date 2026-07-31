@@ -40,7 +40,7 @@ class App {
       btnReset: document.getElementById('btn-reset'),
       btnNext: document.getElementById('btn-next'),
       themeToggle: document.getElementById('theme-toggle'),
-      keyboardToggle: document.getElementById('keyboard-toggle'),
+      visualAidButtons: document.querySelectorAll('.visual-aid-btn'),
       stageTabs: document.querySelectorAll('.stage-tab'),
       designDots: document.querySelectorAll('.design-dot'),
     };
@@ -49,7 +49,7 @@ class App {
     this._setupEventListeners();
     this._loadTheme();
     this._loadDesign();
-    this._loadKeyboardPref();
+    this._loadVisualAidPref();
     this._updateKeyProgress();
     this._updateDailyGoal();
     this._updateStreak();
@@ -120,9 +120,9 @@ class App {
         this._toggleTheme();
         return;
       }
-      // K = toggle keyboard (only when not focused on input)
+      // K = cycle visual aid (only when not focused on input)
       if (e.key === 'k' && document.activeElement !== this.el.typingInput) {
-        this._toggleKeyboard();
+        this._cycleVisualAid();
         return;
       }
       // Right arrow = next stage (only when not focused on input)
@@ -156,7 +156,11 @@ class App {
     this.el.btnReset.addEventListener('click', () => this._resetExercise());
     this.el.btnNext.addEventListener('click', () => this._nextStage());
     this.el.themeToggle.addEventListener('click', () => this._toggleTheme());
-    this.el.keyboardToggle.addEventListener('click', () => this._toggleKeyboard());
+    this.el.visualAidButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this._setVisualAid(btn.getAttribute('data-visual-aid'));
+      });
+    });
 
     // Auto-focus input on load (preventScroll: don't let focus scroll the header away)
     this.el.typingInput.focus({ preventScroll: true });
@@ -417,21 +421,36 @@ class App {
     this._setDesign(saved);
   }
 
-  // --- Keyboard Toggle ---
+  // --- Visual Aid ---
 
-  _toggleKeyboard() {
-    const visible = this.keyboard.toggle();
-    const btn = this.el.keyboardToggle;
-    btn.textContent = visible ? 'Hide ⌨' : 'Show ⌨';
-    localStorage.setItem('promptkeymind_keyboard', visible ? 'visible' : 'hidden');
+  _setVisualAid(mode) {
+    const allowed = ['focus', 'hands', 'keyboard', 'tutor'];
+    const next = allowed.includes(mode) ? mode : 'tutor';
+    const showKeyboard = next === 'keyboard' || next === 'tutor';
+    const showHands = next === 'hands' || next === 'tutor';
+
+    this.visualAidMode = next;
+    this.keyboard.setVisualAid({ keyboard: showKeyboard, hands: showHands });
+    document.documentElement.setAttribute('data-visual-aid', next);
+    localStorage.setItem('promptkeymind_visual_aid', next);
+
+    this.el.visualAidButtons.forEach(btn => {
+      const active = btn.getAttribute('data-visual-aid') === next;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
   }
 
-  _loadKeyboardPref() {
-    const saved = localStorage.getItem('promptkeymind_keyboard');
-    if (saved === 'hidden') {
-      this.keyboard.setVisible(false);
-      this.el.keyboardToggle.textContent = 'Show ⌨';
-    }
+  _cycleVisualAid() {
+    const order = ['focus', 'hands', 'keyboard', 'tutor'];
+    const current = order.indexOf(this.visualAidMode || 'tutor');
+    this._setVisualAid(order[(current + 1) % order.length]);
+  }
+
+  _loadVisualAidPref() {
+    const saved = localStorage.getItem('promptkeymind_visual_aid');
+    const legacy = localStorage.getItem('promptkeymind_keyboard');
+    this._setVisualAid(saved || (legacy === 'hidden' ? 'focus' : 'tutor'));
   }
 }
 

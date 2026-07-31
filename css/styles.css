@@ -649,6 +649,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .keyboard-title {
@@ -657,6 +658,42 @@ body {
   letter-spacing: 0.1em;
   color: var(--text-muted);
   font-weight: 500;
+}
+
+.visual-aid-switcher {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 34px;
+  padding: 3px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.visual-aid-btn {
+  min-height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.visual-aid-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+}
+
+.visual-aid-btn.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 10px var(--accent-glow);
 }
 
 .keyboard-container {
@@ -814,6 +851,10 @@ body {
   transition: opacity var(--transition);
 }
 
+.hand.hidden {
+  display: none;
+}
+
 .hand svg {
   width: 100%;
   height: auto;
@@ -857,6 +898,20 @@ body {
   stroke: var(--text-primary);
   stroke-width: 2;
   filter: drop-shadow(0 0 6px currentColor);
+}
+
+.keyboard-with-hands.hands-only {
+  gap: 80px;
+  padding: 12px 0 18px;
+}
+
+.keyboard-with-hands.hands-only .hand {
+  width: 118px;
+  opacity: 0.82;
+}
+
+.keyboard-with-hands.keyboard-only {
+  gap: 0;
 }
 
 .hand .finger.active[data-finger="pinky-l"] { fill: var(--finger-pinky-l); filter: drop-shadow(0 0 8px var(--finger-pinky-l)); }
